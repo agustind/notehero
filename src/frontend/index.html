@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>NoteHero</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<section id="listView" class="view">
+  <header class="search">
+    <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l4 4"/></svg>
+    <input id="q" placeholder="Search or create a note…" spellcheck="false" autocomplete="off">
+    <button id="gear" class="icon" title="Settings (⌘,)">
+      <svg class="cog" viewBox="0 0 20 20" aria-hidden="true"><path fill-rule="evenodd" d="M16.21 8.97 L18.15 9.10 L18.15 10.90 L16.21 11.03 L15.13 13.66 L16.40 15.13 L15.13 16.40 L13.66 15.13 L11.03 16.21 L10.90 18.15 L9.10 18.15 L8.97 16.21 L6.34 15.13 L4.87 16.40 L3.60 15.13 L4.87 13.66 L3.79 11.03 L1.85 10.90 L1.85 9.10 L3.79 8.97 L4.87 6.34 L3.60 4.87 L4.87 3.60 L6.34 4.87 L8.97 3.79 L9.10 1.85 L10.90 1.85 L11.03 3.79 L13.66 4.87 L15.13 3.60 L16.40 4.87 L15.13 6.34 Z M12.7 10 A2.7 2.7 0 1 0 7.3 10 A2.7 2.7 0 1 0 12.7 10 Z"/></svg>
+    </button>
+  </header>
+  <ul id="list" role="listbox"></ul>
+  <div id="empty" class="empty" hidden></div>
+  <footer><span><kbd>↑</kbd><kbd>↓</kbd> select</span><span><kbd>↵</kbd> open</span><span><kbd>⌘↵</kbd> new</span><span><kbd>⌘⇧⌫</kbd> delete</span><span><kbd>esc</kbd> close</span></footer>
+</section>
+
+<section id="editorView" class="view" hidden>
+  <header class="bar">
+    <button id="back" class="link">‹ Notes</button>
+    <span id="meta" class="meta"></span>
+    <button id="del" class="link danger" title="Delete (⌘⇧⌫)">Delete</button>
+  </header>
+  <textarea id="editor" spellcheck="true" placeholder="Start typing…"></textarea>
+  <footer><span><kbd>esc</kbd> back to notes</span><span><kbd>⌘⇧⌫</kbd> delete</span><span id="saved"></span></footer>
+</section>
+
+<section id="settingsView" class="view" hidden>
+  <header class="titlebar">
+    <h1>Settings</h1>
+    <button id="settingsBack" class="icon close" title="Close (esc)">
+      <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M6 6l8 8M14 6l-8 8"/></svg>
+    </button>
+  </header>
+  <div class="settings">
+    <label>Global shortcut</label>
+    <button id="recorder" class="recorder"></button>
+    <p class="hint" id="recHint">Click, then press a new key combination. It must include ⌘, ⌃ or ⌥.</p>
+    <button id="resetHotkey" class="link">Reset to default</button>
+
+    <label>Appearance</label>
+    <div class="segmented" id="theme" role="radiogroup">
+      <button data-theme="system" role="radio">System</button>
+      <button data-theme="light" role="radio">Light</button>
+      <button data-theme="dark" role="radio">Dark</button>
+    </div>
+
+    <label class="check"><input type="checkbox" id="login"> Launch at login</label>
+    <p class="hint" id="loginHint"></p>
+
+    <button id="quit" class="quit">Quit NoteHero</button>
+  </div>
+  <footer class="center"><span id="version"></span> · <button class="link" id="aboutBtn">About</button></footer>
+</section>
+
+<div class="overlay" id="confirm" hidden>
+  <div class="aboutBox">
+    <h2 class="aboutTitle" id="confirmTitle"></h2>
+    <p class="muted">This can't be undone.</p>
+    <div class="actions">
+      <button id="confirmCancel" class="btn">Cancel <kbd>esc</kbd></button>
+      <button id="confirmOk" class="btn danger">Delete <kbd>↵</kbd></button>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="about" hidden>
+  <div class="aboutBox">
+    <svg class="logo" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="3"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>
+    <h2 class="aboutTitle">NoteHero</h2>
+    <div class="muted" id="aboutVersion"></div>
+    <p>Quick notes from your menu bar. Search, pick, or just start typing.</p>
+    <p>Made by <a href="#" class="ext" data-url="https://dondo.dev">dondo.dev</a></p>
+    <button id="aboutClose" class="btn">Close</button>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
