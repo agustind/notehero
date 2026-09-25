@@ -3,7 +3,7 @@
   "title": "NoteHero",
   "size": "440x520",
   "id": "io.github.agustind.notehero",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "minTinyjsVersion": "0.41.0",
   "icon": "icon.png",
   "activation": "accessory",

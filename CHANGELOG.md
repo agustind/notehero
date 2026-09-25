@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.3 — 2026-09-25
+
+### Changed
+- **New dark app icon** in the tinyjs style: a soft-blue note page on navy, also shown in the
+  About screen.
+
 ## 0.1.2 — 2026-09-25
 
 ### Changed
