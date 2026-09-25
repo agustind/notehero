@@ -382,10 +382,12 @@ tiny.api.on('open-settings', showSettings);
 tiny.api.on('about', async () => { await showSettings(); showAbout(true); });
 
 (async () => {
+  // list first: the backend migrates the 0.1.0 data folder (notes and
+  // store.json) before answering, so the theme read below sees it
+  notes = await tiny.api.call('list');
   applyTheme(await tiny.store.get('theme'));
   const { version } = await tiny.app.info();
   $('version').textContent = 'v' + version;
   $('aboutVersion').textContent = 'Version ' + version;
-  notes = await tiny.api.call('list');
   showList();
 })();

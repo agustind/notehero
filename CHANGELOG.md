@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+### Changed
+- **Data folder** is now `~/Library/Application Support/io.github.agustind.notehero`, matching
+  the app's new bundle id. Notes and settings from 0.1.0 are copied over on first launch; the old
+  `com.agudondo.notehero` folder is left in place as a backup.
+
 ## 0.1.0 — 2026-09-25
 
 First release.

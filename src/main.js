@@ -3,6 +3,8 @@
 import { Database } from 'tjs:sqlite';
 
 const DEFAULT_HOTKEY = 'ctrl+alt+n';
+// 0.1.0 shipped under this bundle id; its data folder is migrated on launch
+const OLD_ID = 'com.agudondo.notehero';
 const HOTKEY_ID = 'summon';
 
 let db = null;
@@ -12,18 +14,39 @@ let hotkey = DEFAULT_HOTKEY;
 // click doesn't immediately re-open it.
 let lastBlurHide = 0;
 
-async function openDb(app) {
-  if (db) return db;
+async function exists(path) {
+  try { await tjs.stat(path); return true; } catch { return false; }
+}
+
+// Copy notes and settings from the 0.1.0 data folder the first time this
+// build runs. The old folder is left in place as a backup.
+async function migrateData(app) {
   const dir = app.paths.data;
+  const oldDir = dir.replace(/[^/]+\/?$/, OLD_ID);
+  if (oldDir === dir || await exists(dir + '/notes.db') || !await exists(oldDir + '/notes.db')) return;
   await tjs.makeDir(dir, { recursive: true });
-  db = new Database(dir + '/notes.db');
-  db.exec(`CREATE TABLE IF NOT EXISTS notes (
-    id INTEGER PRIMARY KEY,
-    body TEXT NOT NULL DEFAULT '',
-    created INTEGER NOT NULL,
-    updated INTEGER NOT NULL
-  )`);
-  return db;
+  for (const f of ['notes.db', 'store.json']) {
+    if (await exists(oldDir + '/' + f)) await tjs.writeFile(dir + '/' + f, await tjs.readFile(oldDir + '/' + f));
+  }
+}
+
+// One shared promise, so concurrent first calls (init and the page's first
+// list) don't each open a database — or open one before the migration ran.
+let dbReady = null;
+function openDb(app) {
+  return dbReady ??= (async () => {
+    await migrateData(app);
+    const dir = app.paths.data;
+    await tjs.makeDir(dir, { recursive: true });
+    db = new Database(dir + '/notes.db');
+    db.exec(`CREATE TABLE IF NOT EXISTS notes (
+      id INTEGER PRIMARY KEY,
+      body TEXT NOT NULL DEFAULT '',
+      created INTEGER NOT NULL,
+      updated INTEGER NOT NULL
+    )`);
+    return db;
+  })();
 }
 
 function query(sql, ...args) {

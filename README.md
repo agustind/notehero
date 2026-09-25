@@ -39,7 +39,7 @@ It requires an Apple Silicon Mac.
 
 ## Where notes are stored
 
-In a SQLite database at `~/Library/Application Support/com.agudondo.notehero/notes.db`.
+In a SQLite database at `~/Library/Application Support/io.github.agustind.notehero/notes.db`.
 
 ## Development
 
