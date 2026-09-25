@@ -166,7 +166,7 @@ footer.center { justify-content: center; gap: 4px; }
 .aboutBox p { margin: 12px 0; }
 .aboutBox a { color: var(--sel); }
 .aboutTitle { font-size: 15px; margin: 10px 0 2px; }
-.logo { width: 38px; height: 38px; color: var(--sel); stroke-width: 1.5; }
+.logo { width: 72px; height: 72px; display: block; margin: -6px auto 0; }
 .btn { padding: 4px 16px; border-radius: 6px; background: var(--field); border: 1px solid var(--line); }
 .btn:hover { background: var(--hover); }
 

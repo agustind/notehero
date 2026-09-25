@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.2 — 2026-09-25
+
+### Changed
+- **New app icon:** an amber note with a magnifying glass, also shown in the About screen.
+
 ## 0.1.1 — 2026-09-25
 
 ### Changed
