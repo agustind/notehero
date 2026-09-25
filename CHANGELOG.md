@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.1.1 — 2026-09-25
 
 ### Changed
 - **Data folder** is now `~/Library/Application Support/io.github.agustind.notehero`, matching
