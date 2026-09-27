@@ -13,6 +13,8 @@ press ↵ to open a note, or keep typing and press ↵ to create one.
   press ⌘,).
 - **Autosave.** Notes are saved as you type. A note you empty is removed when you leave it.
 - **Appearance.** System, light or dark.
+- **Editor font.** Choose the typeface, size and line height in Settings. Notes use SF Mono by
+  default, and you can type the name of any installed font.
 - **Start at login.** Optionally launch the app when you log in.
 
 ## Keyboard

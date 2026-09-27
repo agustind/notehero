@@ -9,6 +9,10 @@
   --danger: #d70015;
   --mark: rgba(255, 204, 0, 0.45);
   --bg: #f6f6f7;
+  /* editor font, overridden from Settings */
+  --editor-font: ui-monospace, "SF Mono", Menlo, monospace;
+  --editor-size: 13px;
+  --editor-line-height: 1.5;
   color-scheme: light dark;
 }
 /* "system" follows macOS; data-theme on <html> forces one or the other */
@@ -126,12 +130,15 @@ kbd {
 .link.danger { color: var(--danger); }
 #editor {
   flex: 1; resize: none; border: 0; outline: 0; background: transparent; color: var(--fg);
-  padding: 14px 16px; font: 14px/1.55 -apple-system, BlinkMacSystemFont, sans-serif;
+  padding: 14px 16px; font: var(--editor-size)/var(--editor-line-height) var(--editor-font);
   -webkit-user-select: text; user-select: text;
 }
 
 /* settings */
-.settings { padding: 18px 18px; display: flex; flex-direction: column; align-items: flex-start; gap: 6px; flex: 1; }
+.settings {
+  padding: 18px 18px; display: flex; flex-direction: column; align-items: flex-start; gap: 6px;
+  flex: 1; min-height: 0; overflow-y: auto;
+}
 .settings label { font-weight: 600; margin-top: 8px; }
 .settings label.check { font-weight: 400; display: flex; gap: 8px; align-items: center; margin-top: 18px; }
 .recorder {
@@ -147,6 +154,20 @@ kbd {
 .segmented button { padding: 4px 14px; border-radius: 6px; }
 .segmented button:hover { background: var(--hover); }
 .segmented button[aria-checked="true"] { background: var(--sel); color: var(--sel-fg); }
+.fontRow { display: flex; gap: 12px; align-items: center; width: 100%; }
+.fontRow .field { display: flex; gap: 6px; align-items: center; color: var(--muted); }
+.settings select { font: inherit; color: var(--fg); }
+#fontCustom {
+  flex: 1; min-width: 0; padding: 3px 8px; border-radius: 6px; outline: 0;
+  font: inherit; color: var(--fg); background: var(--field); border: 1px solid var(--line);
+  -webkit-user-select: text; user-select: text;
+}
+#fontCustom:focus { border-color: var(--sel); }
+.fontPreview {
+  width: 100%; padding: 8px 10px; border-radius: 7px; background: var(--field);
+  font: var(--editor-size)/var(--editor-line-height) var(--editor-font);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
 .hint { margin: 0; color: var(--muted); font-size: 11px; }
 .quit { margin-top: auto; color: var(--danger); }
 

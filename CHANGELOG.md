@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.4 — 2026-09-27
+
+### Added
+- **Editor font settings.** Pick the typeface, size and line height of the note editor in
+  Settings, with a live preview. Choose from SF Mono, Menlo, Monaco, Courier New, San Francisco,
+  Helvetica Neue, Avenir Next, New York and Georgia, or type the name of any installed font.
+
+### Changed
+- **Monospace by default.** Notes now open in SF Mono at 13 pt with a 1.5 line height.
+
 ## 0.1.3 — 2026-09-25
 
 ### Changed

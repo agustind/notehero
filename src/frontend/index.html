@@ -50,6 +50,34 @@
       <button data-theme="dark" role="radio">Dark</button>
     </div>
 
+    <label for="fontFamily">Editor font</label>
+    <div class="fontRow">
+      <select id="fontFamily">
+        <optgroup label="Monospace">
+          <option value="sf-mono">SF Mono</option>
+          <option value="menlo">Menlo</option>
+          <option value="monaco">Monaco</option>
+          <option value="courier">Courier New</option>
+        </optgroup>
+        <optgroup label="Sans-serif">
+          <option value="system">San Francisco</option>
+          <option value="helvetica">Helvetica Neue</option>
+          <option value="avenir">Avenir Next</option>
+        </optgroup>
+        <optgroup label="Serif">
+          <option value="new-york">New York</option>
+          <option value="georgia">Georgia</option>
+        </optgroup>
+        <option value="custom">Other…</option>
+      </select>
+      <input id="fontCustom" placeholder="Font name, e.g. JetBrains Mono" spellcheck="false" autocomplete="off" hidden>
+    </div>
+    <div class="fontRow">
+      <span class="field">Size <select id="fontSize"></select></span>
+      <span class="field">Line height <select id="lineHeight"></select></span>
+    </div>
+    <div id="fontPreview" class="fontPreview">The quick brown fox 0O 1lI {}[] =&gt; !=</div>
+
     <label class="check"><input type="checkbox" id="login"> Launch at login</label>
     <p class="hint" id="loginHint"></p>
 

@@ -359,6 +359,60 @@ $('theme').addEventListener('click', (e) => {
 });
 $('settingsBack').addEventListener('click', () => showList());
 
+// editor font: { family, custom, size, lineHeight }, kept in the store as 'font'
+const FONT_STACKS = {
+  'sf-mono': 'ui-monospace, "SF Mono", Menlo, monospace',
+  menlo: 'Menlo, monospace',
+  monaco: 'Monaco, monospace',
+  courier: '"Courier New", Courier, monospace',
+  system: '-apple-system, BlinkMacSystemFont, sans-serif',
+  helvetica: '"Helvetica Neue", Helvetica, sans-serif',
+  avenir: '"Avenir Next", Avenir, sans-serif',
+  'new-york': 'ui-serif, "New York", Georgia, serif',
+  georgia: 'Georgia, serif',
+};
+const FONT_SIZES = [10, 11, 12, 13, 14, 15, 16, 17, 18, 20, 22, 24];
+const LINE_HEIGHTS = [1.2, 1.35, 1.5, 1.65, 1.8, 2];
+const DEFAULT_FONT = { family: 'sf-mono', custom: '', size: 13, lineHeight: 1.5 };
+let font = { ...DEFAULT_FONT };
+
+$('fontSize').innerHTML = FONT_SIZES.map((s) => `<option value="${s}">${s}</option>`).join('');
+$('lineHeight').innerHTML = LINE_HEIGHTS.map((h) => `<option value="${h}">${h.toFixed(2).replace(/0$/, '')}</option>`).join('');
+
+function fontStack({ family, custom }) {
+  // a custom name goes straight into a CSS value, so keep it to one quoted name
+  const name = family === 'custom' && custom.replace(/["\\;{}]/g, '').trim();
+  if (name) return `"${name}", ui-monospace, monospace`;
+  return FONT_STACKS[family] || FONT_STACKS[DEFAULT_FONT.family];
+}
+
+function applyFont(saved) {
+  font = { ...DEFAULT_FONT, ...saved };
+  if (!FONT_STACKS[font.family] && font.family !== 'custom') font.family = DEFAULT_FONT.family;
+  const root = document.documentElement.style;
+  root.setProperty('--editor-font', fontStack(font));
+  root.setProperty('--editor-size', font.size + 'px');
+  root.setProperty('--editor-line-height', String(font.lineHeight));
+  $('fontFamily').value = font.family;
+  $('fontCustom').hidden = font.family !== 'custom';
+  if ($('fontCustom').value !== font.custom) $('fontCustom').value = font.custom;
+  $('fontSize').value = String(font.size);
+  $('lineHeight').value = String(font.lineHeight);
+}
+
+function setFont(patch) {
+  applyFont({ ...font, ...patch });
+  tiny.store.set('font', font);
+}
+
+$('fontFamily').addEventListener('change', (e) => {
+  setFont({ family: e.target.value });
+  if (font.family === 'custom') $('fontCustom').focus();
+});
+$('fontCustom').addEventListener('input', (e) => setFont({ custom: e.target.value }));
+$('fontSize').addEventListener('change', (e) => setFont({ size: +e.target.value }));
+$('lineHeight').addEventListener('change', (e) => setFont({ lineHeight: +e.target.value }));
+
 // ---------- global keys & backend events ----------
 
 document.addEventListener('keydown', (e) => {
@@ -386,6 +440,7 @@ tiny.api.on('about', async () => { await showSettings(); showAbout(true); });
   // store.json) before answering, so the theme read below sees it
   notes = await tiny.api.call('list');
   applyTheme(await tiny.store.get('theme'));
+  applyFont(await tiny.store.get('font'));
   const { version } = await tiny.app.info();
   $('version').textContent = 'v' + version;
   $('aboutVersion').textContent = 'Version ' + version;
