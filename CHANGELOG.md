@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.2.0 — 2026-09-29
+
+### Changed
+- **Native app.** NoteHero is rewritten in Swift (AppKit + SwiftUI) instead of tinyjs. Note editing
+  is native, with undo, spell check and input methods. The app is
+  under 1 MB (was 9 MB). Everything else works as before.
+- **Your notes carry over.** The app reads the same notes database. Your shortcut, appearance and
+  font settings are imported from the old version on first launch.
+- The Appearance setting now applies to the whole popover, so the translucent background
+  follows it too.
+- If macOS won't register a new shortcut, Settings says so and the previous one stays active.
+- **Notes open at the top**, with the cursor at the start. A note you just created still puts the
+  cursor below its title.
+- Requires macOS 14 or later.
+
 ## 0.1.4 — 2026-09-27
 
 ### Added

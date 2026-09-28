@@ -1,7 +1,8 @@
 # NoteHero
 
-A tiny native macOS menu bar app for quick notes. Hit a shortcut from anywhere, type to search,
-press ↵ to open a note, or keep typing and press ↵ to create one.
+A tiny native macOS menu bar app for quick notes, written in Swift (AppKit + SwiftUI). Hit a
+shortcut from anywhere, type to search, press ↵ to open a note, or keep typing and press ↵ to
+create one.
 
 ## Features
 
@@ -37,31 +38,42 @@ press ↵ to open a note, or keep typing and press ↵ to create one.
 2. Open it and drag **NoteHero** into **Applications**.
 3. Launch it. A note icon appears in the menu bar.
 
-It requires an Apple Silicon Mac.
+It requires an Apple Silicon Mac with macOS 14 or later.
 
 ## Where notes are stored
 
 In a SQLite database at `~/Library/Application Support/io.github.agustind.notehero/notes.db`.
+Settings are kept in the app's preferences (`io.github.agustind.notehero`).
 
 ## Development
 
-Built with [tinyjs](https://tinyjs.app).
+A native Swift app (AppKit + SwiftUI), macOS 14 or later. Needs the Xcode command line tools.
 
 ```sh
-tinyjs dev    # run with hot reload
-tinyjs build  # dist/NoteHero.app (ad-hoc signed)
+scripts/build.sh                  # dist/NoteHero.app (ad-hoc signed)
+open dist/NoteHero.app
 ```
 
-- `src/main.js`: backend (SQLite storage, tray icon, global shortcut, window placement)
-- `src/frontend/`: the popover UI (search, editor, settings)
+To try a build without touching your real notes, point it at another folder:
+
+```sh
+NOTEHERO_DATA_DIR=/tmp/notehero-dev dist/NoteHero.app/Contents/MacOS/NoteHero
+```
+
+- `Sources/NoteHero/main.swift`: menu bar icon, the popover panel and its placement
+- `Sources/NoteHero/AppModel.swift`: notes, search, keyboard handling, settings actions
+- `Sources/NoteHero/Views.swift`, `TextInputs.swift`: the popover UI (search, editor, settings)
+- `Sources/NoteHero/NotesDB.swift`: SQLite storage
+- `Sources/NoteHero/HotKey.swift`: the global shortcut
+- `Sources/NoteHero/Settings.swift`: data folder, preferences, and migration from older versions
+- `Info.plist`: bundle id and version
 
 ### Signed and notarized release builds
 
 With a Developer ID Application certificate in your keychain and a `notarytool` profile:
 
 ```sh
-export TINYJS_SIGN_IDENTITY="Developer ID Application: <Name> (<TEAMID>)"
-export TINYJS_NOTARY_PROFILE=<profile>
-tinyjs build --dmg
-tinyjs notarize --dmg
+export NOTEHERO_SIGN_IDENTITY="Developer ID Application: <Name> (<TEAMID>)"
+export NOTEHERO_NOTARY_PROFILE=<profile>
+scripts/build.sh --notarize       # dist/notehero-<version>.dmg and .zip, notarized and stapled
 ```

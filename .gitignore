@@ -1,6 +1,7 @@
 .build/
+.swiftpm/
 dist/
 .DS_Store
-# vendored tinyjs agent docs from the project template
+# vendored tinyjs agent docs from the old project template
 .agents/
 .claude/
