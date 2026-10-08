@@ -12,6 +12,8 @@ create one.
   and leaves the cursor below it, so you can keep typing.
 - **Global shortcut.** ⌃⌥N by default. Record a different one in Settings (click the cog or
   press ⌘,).
+- **Checklists.** Type `.-` at the start of a line to make a checkbox, and click it to check it
+  off. ↵ on a checklist line starts the next one; ↵ on an empty one ends the list.
 - **Autosave.** Notes are saved as you type. A note you empty is removed when you leave it.
 - **Appearance.** System, light or dark.
 - **Editor font.** Choose the typeface, size and line height in Settings. Notes use SF Mono by

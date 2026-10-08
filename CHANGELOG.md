@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.1 — 2026-10-08
+
+### Added
+- **Checklists.** Type `.-` at the start of a line to turn it into a checkbox (☐), and click the
+  box to check it off (☑). Checked items are dimmed and struck through. Press ↵ on a checklist
+  line to start the next item, or on an empty item to end the list. Checkboxes are saved as plain
+  ☐ / ☑ characters, so they show up in search and copy as text.
+
 ## 0.2.0 — 2026-09-29
 
 ### Changed
